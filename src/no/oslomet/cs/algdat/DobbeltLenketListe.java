@@ -31,7 +31,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             this.neste = neste;
         }
 
-        private Node(T verdi) {
+        private Node(T verdi) {             //konstruktør
+
             this(verdi, null, null);
         }
     }
@@ -43,11 +44,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        this();         //alle variabler er nullet
+        Objects.requireNonNull(a,"Tabellen a er null!");
+        int i = 0;
+        for(;i < a.length && a[i] == null; i++);        //Finer den første i a som ikke er null
+
+        if(i < a.length){
+            Node<T> p = hode = hale = new Node<>(a[i],null,null);
+            antall = 1;
+
+            for (i++; i < a.length; i++){
+                if(a[i] != null){
+                    p = p.neste = new Node<>(a[i],null,null);
+                    antall ++;
+                }
+            }
+            hale = p;
+        }
+
+
+
     }
 
     public Liste<T> subliste(int fra, int til){
@@ -56,12 +76,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall;
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+
+        return antall == 0;
     }
 
     @Override
