@@ -43,7 +43,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+    //konstruktør
     public DobbeltLenketListe() {
+        hode = hale = null;
+        endringer = 0;
+        antall = 0;
 
     }
 
@@ -76,6 +80,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
+
         return antall;
     }
 
@@ -132,11 +137,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        StringBuilder s = new StringBuilder();
+        s.append('[');              //starter s med en [
+
+        if(!tom()){
+            Node<T> p = hode;       //starter på hode
+            s.append(p.verdi);      //så legger den inn i s
+
+            p = p.neste;            //hode blir da neste.
+
+            while( p  != null){             //Denne sjekker om det er flere verdier i listen som ikke er lik null.
+                s.append(',').append(' ').append(p.verdi);
+                p = p.neste;
+            }
+
+        }
+        s.append(']');              //avslutter s med en ]
+        return s.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        StringBuilder s = new StringBuilder();
+        s.append('[');
+
+        if(!tom()){
+            Node<T> p = hale;
+            s.append(p.verdi);
+
+            p = p.forrige;
+
+            while( p != null){
+                s.append(',').append(' ').append(p.verdi);
+                p = p.forrige;
+            }
+        }
+        s.append(']');              //avslutter s med en ]
+        return s.toString();
     }
 
     @Override
