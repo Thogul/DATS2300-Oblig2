@@ -53,9 +53,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Hjelpekode
     private Node<T> finnNode(int indeks)
     {
-        Node<T> p = hode;
-        for (int i = 0; i < indeks; i++){
-            p = p.neste;
+        Node<T> p;
+        if(indeks<this.antall/2)
+        {
+            p = this.hode;
+            for (int i=0;i<indeks;i++)
+            {
+                p = p.neste;
+            }
+        }
+        else
+        {
+            p = this.hale;
+            for (int i=this.antall-1;i>indeks;i--)
+            {
+                p = p.forrige;
+            }
         }
         return p;
     }
@@ -102,7 +115,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi,"Null verdier er ikke tillat!");
-        if(antall ==0){
+        if(antall == 0){
             hode = hale = new Node<>(verdi,null,null);
         }else{
             hale = hale.neste = new Node<T>(verdi,hale,null);
@@ -124,7 +137,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        Node<T> p = this.finnNode(indeks);
+        return p.verdi;
     }
 
     @Override
@@ -134,7 +149,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(nyverdi,"Null verdier er ikke tillat!");
+        indeksKontroll(indeks, false);//Litt usikker på om vi skal bruke true eller false her
+
+        Node<T> p = this.finnNode(indeks);
+        T gammelverdi = p.verdi;
+        p.verdi = nyverdi;
+        this.endringer++;
+        return gammelverdi;
     }
 
     @Override
