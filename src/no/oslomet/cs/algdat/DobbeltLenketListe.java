@@ -72,7 +72,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             for (i++; i < a.length; i++){
                 if(a[i] != null){
-                    p = p.neste = new Node<>(a[i],null,null);
+                    p = p.neste = new Node<>(a[i],p,null);
                     antall ++;
                 }
             }
@@ -105,7 +105,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall ==0){
             hode = hale = new Node<>(verdi,null,null);
         }else{
-            hale = hale.neste = new Node<T>(verdi,null,null);
+            hale = hale.neste = new Node<T>(verdi,hale,null);
         }
         antall ++;
         endringer++;
