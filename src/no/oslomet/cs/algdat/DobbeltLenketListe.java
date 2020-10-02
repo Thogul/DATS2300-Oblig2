@@ -50,6 +50,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall = 0;
 
     }
+    //Hjelpekode
+    private Node<T> finnNode(int indeks)
+    {
+        Node<T> p = hode;
+        for (int i = 0; i < indeks; i++){
+            p = p.neste;
+        }
+        return p;
+    }
 
     public DobbeltLenketListe(T[] a) {
         this();         //alle variabler er nullet
@@ -122,13 +131,70 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if (verdi == null) {
+            return false;
+        }
+
+        Node<T> q = hode;
+        Node <T> p = null;
+
+        while (q != null)
+        {
+            if (q.verdi.equals(verdi)) {
+                break;
+            }
+            p = q; q = q.neste;
+        }
+
+        if (q == null) {
+            return false;
+        }
+        else if (q == hode) {
+            hode = hode.neste;
+        }
+        else {
+            p.neste = q.neste;
+        }
+
+        if (q == hale){
+            hale = p;
+        }
+
+        q.verdi = null;
+        q.neste = null;
+
+        antall--;
+        endringer++;
+
+        return true;
     }
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
-    }
+        indeksKontroll(indeks, false);
+
+            T fjernverdi;
+
+            if(indeks == 0) {
+                fjernverdi = hode.verdi;
+                hode = hode.neste;
+                if (antall == 1){
+                    hale = null;
+                }
+            } else {
+                Node<T> p = finnNode(indeks -1);
+                Node<T> q = p.neste;
+                fjernverdi = q.verdi;
+
+                if(q == hale) {
+                    hale = p;
+                }
+                p.neste = q.neste;
+            }
+            antall--;
+            endringer++;
+            return fjernverdi;
+        }
 
     @Override
     public void nullstill() {
