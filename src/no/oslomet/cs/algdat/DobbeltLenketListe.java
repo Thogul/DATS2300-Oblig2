@@ -48,7 +48,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode = hale = null;
         endringer = 0;
         antall = 0;
-
     }
     //Hjelpekode
     private Node<T> finnNode(int indeks)
@@ -91,22 +90,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             hale = p;
         }
-
-
-
     }
 
     public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        fratilKontroll(antall, fra, til);
+        Liste<T> liste = new DobbeltLenketListe<T>();
+        for (int i=fra;i<til;i++) {
+            T verdi = finnNode(i).verdi;
+            liste.leggInn(verdi);
+        }
+        return liste;
     }
 
-    private static void fratilKontroll(int tablengde, int fra, int til)
+    private static void fratilKontroll(int antall, int fra, int til)
     {
         if (fra < 0)                                  // fra er negativ
             throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
 
-        if (til > tablengde)                          // til er utenfor tabellen
-            throw new IndexOutOfBoundsException("til(" + til + ") > tablengde(" + tablengde +" )");
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall +" )");
 
         if (fra > til)                                // fra er større enn til
             throw new IllegalArgumentException
