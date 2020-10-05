@@ -100,6 +100,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    private static void fratilKontroll(int tablengde, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException("til(" + til + ") > tablengde(" + tablengde +" )");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
     @Override
     public int antall() {
 
@@ -144,7 +157,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        if ( verdi == null){
+            return -1;
+        }
+        Node<T> p = hode;
+        for(int i = 0; i <antall; i ++){
+            if(p.verdi.equals(verdi)){
+                return i;
+            }
+            p =  p.neste;
+        }
+        return -1;
     }
 
     @Override
