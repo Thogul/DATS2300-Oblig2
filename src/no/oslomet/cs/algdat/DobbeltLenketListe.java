@@ -207,6 +207,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         else if (q == hode) {
             hode = hode.neste;
+            hode.forrige = null;
         }
         else {
             p.neste = q.neste;
@@ -214,6 +215,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         if (q == hale){
             hale = p;
+            hale.neste = null;
         }
 
         q.verdi = null;
