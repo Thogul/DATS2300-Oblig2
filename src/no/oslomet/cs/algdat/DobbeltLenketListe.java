@@ -187,39 +187,46 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
+
         if (verdi == null) {
             return false;
         }
 
-        Node<T> q = hode;
-        Node <T> p = null;
+        Node<T> p = hode;
+        Node <T> q;
+        Node<T> r;
 
-        while (q != null)
-        {
-            if (q.verdi.equals(verdi)) {
-                break;
+        for (int i = 0; i < antall; i++) {
+            if (p.verdi.equals(verdi)) {
+                if (antall == 1){
+                    hode = hale = null;
+                    break;
+                }
+                if (i == 0) {
+                    p = p.neste;
+                    p.forrige = null;
+                    hode = p;
+                    break;
+                } else if (i < antall - 1) {
+                    p = p.forrige;
+                    q = p.neste;
+                    r = q.neste;
+
+                    p.neste = r;
+                    r.forrige = p;
+                    break;
+                } else {
+                    q = p.forrige;
+                    q.neste = null;
+                    hale = q;
+                    break;
+                }
             }
-            p = q; q = q.neste;
+            if (i == antall-1) {
+                return false;
+            }
+            p = p.neste;
         }
-
-        if (q == null) {
-            return false;
-        }
-        else if (q == hode) {
-            hode = hode.neste;
-            hode.forrige = null;
-        }
-        else {
-            p.neste = q.neste;
-        }
-
-        if (q == hale){
-            hale = p;
-            hale.neste = null;
-        }
-
-        q.verdi = null;
-        q.neste = null;
 
         antall--;
         endringer++;
@@ -234,15 +241,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             T fjernverdi;
 
             if(indeks == 0) {
-                fjernverdi = hode.verdi;
-                hode = hode.neste;
-                hode.forrige = null;
-
                 if (antall == 1){
-                    hale = hode;
-                    hode.neste = hale;
-                    hale.forrige = hode;
+                    fjernverdi = hode.verdi;
+                    hale = hode = null;
+                } else {
+                    fjernverdi = hode.verdi;
+                    hode = hode.neste;
+                    hode.forrige = null;
                 }
+
             } else if(indeks == antall-1){
                 fjernverdi = hale.verdi;
                 hale = hale.forrige;
@@ -263,7 +270,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        T temp;
+
         Node<T> p = hode;
         Node<T> q = null;
 
