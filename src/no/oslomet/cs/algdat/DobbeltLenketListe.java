@@ -234,18 +234,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if(indeks == 0) {
                 fjernverdi = hode.verdi;
                 hode = hode.neste;
+                hode.forrige = null;
+
                 if (antall == 1){
-                    hale = null;
+                    hale = hode;
+                    hode.neste = hale;
+                    hale.forrige = hode;
                 }
-            } else {
+            } else if(indeks == antall-1){
+                fjernverdi = hale.verdi;
+                hale = hale.forrige;
+                hale.neste = null;
+
+            } else{
                 Node<T> p = finnNode(indeks -1);
                 Node<T> q = p.neste;
+                Node<T> r = q.neste;
                 fjernverdi = q.verdi;
-
-                if(q == hale) {
-                    hale = p;
-                }
-                p.neste = q.neste;
+                p.neste = r;
+                r.forrige = p;
             }
             antall--;
             endringer++;
@@ -355,7 +362,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     } // class DobbeltLenketListeIterator
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
+
+        if(liste == null ) {
+            throw new NullPointerException("Ingen verdi i listen");
+        }
+
+        int n = liste.antall();
+        for (int i = 0; i < n-1; i++) {
+            int min_index = i;
+            for (int j = i+1; j < n; j++){
+                if (c.compare(liste.hent(j),liste.hent(min_index)) < 0)
+                    min_index = j;
+            }
+
+            T temp = liste.hent(min_index);
+            liste.oppdater(min_index, liste.hent(i));
+            liste.oppdater(i,temp);
+        }
+
+
+
+
+
+
+
+
     }
 
 } // class DobbeltLenketListe
