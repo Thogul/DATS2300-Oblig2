@@ -1,2 +1,7 @@
 # DATS2300-Oblig2
-Obli 2 i algoritmer og datastrukturer
+# Deltagere
+Thomas Ax Gulbrandsrød s344043\
+Margrethe Luth Røed s344101\
+Camilla Bjørklund Gjermundnes s344038
+
+# Beskrivelse
