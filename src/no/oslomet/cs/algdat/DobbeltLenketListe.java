@@ -408,7 +408,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove(){
-            throw new UnsupportedOperationException();
+            //vet ikke når det ikke er lov å remove, bør sjekke testkode kanskje
+
+            if (iteratorendringer!=endringer) {
+                throw new ConcurrentModificationException();
+            }
+            fjernOK = false;
+
+            if (antall==1) {
+                hode = null;
+                hale = null;
+            }
+            else if (denne==null) {
+                hale = null;
+            }
+            else if (denne.forrige==hode) {
+                hode = denne;
+            }
+            else {
+                Node forrige = denne.forrige;
+                forrige.neste = denne.neste;
+            }
+            antall--;
+            endringer++;
+            iteratorendringer++;
         }
 
     } // class DobbeltLenketListeIterator
