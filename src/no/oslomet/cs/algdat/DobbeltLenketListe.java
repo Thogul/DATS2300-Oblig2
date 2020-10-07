@@ -364,7 +364,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-        indeksKontroll(indeks, true);
+        indeksKontroll(indeks, false);
         return new DobbeltLenketListeIterator(indeks);
     }
 
@@ -393,7 +393,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
-            if (iteratorendringer==endringer)
+            if (iteratorendringer!=endringer)
             {
                 throw new ConcurrentModificationException();
             }
