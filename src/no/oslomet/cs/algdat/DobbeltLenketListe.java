@@ -409,7 +409,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public void remove(){
             //vet ikke når det ikke er lov å remove, bør sjekke testkode kanskje
-
+            if (antall == 0 || !fjernOK) {
+                throw new IllegalStateException("Antall i listen er 0!");
+            }
             if (iteratorendringer!=endringer) {
                 throw new ConcurrentModificationException();
             }
@@ -420,14 +422,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = null;
             }
             else if (denne==null) {
-                hale = null;
+                hale = hale.forrige;
+                hale.neste = null;
             }
             else if (denne.forrige==hode) {
                 hode = denne;
+                denne.forrige = null;
             }
             else {
-                Node forrige = denne.forrige;
-                forrige.neste = denne.neste;
+                denne.forrige = denne.forrige.forrige;
+                denne.forrige.neste = denne;
             }
             antall--;
             endringer++;
