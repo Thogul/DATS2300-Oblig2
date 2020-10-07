@@ -7,7 +7,7 @@ Camilla Bjørklund Gjermundnes s344038
 # Beskrivelse
 - Oppgave 1\
 - Oppgave 2\
-- Oppgave 3
+- Oppgave 3\
 finnNode sjekker om indeks er riktig og looper gjennom listen til den valgte indeksen og returnerer noden, oppdater bruker finnNode og endrer verdien til node(sjekker om verdi er gyldig og indeks). Subliste bruker finnNode inne i en forloop. Kan effektiviseres med to forløkker istede for finnNode kall vor hvert element.
 - Oppgave 4\
 - Oppgave 5\
