@@ -52,6 +52,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Hjelpekode
     private Node<T> finnNode(int indeks)
     {
+        indeksKontroll(indeks, false);
         Node<T> p;
         if(indeks<this.antall/2)
         {
@@ -217,7 +218,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-
         if (verdi == null) {
             return false;
         }
@@ -226,7 +226,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node <T> q;
         Node<T> r;
 
-        for (int i = 0; i < antall; i++) {
+        for (int i = 0;i < antall; i++) {
             if (p.verdi.equals(verdi)) {
                 if (antall == 1){
                     hode = hale = null;
@@ -268,35 +268,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         indeksKontroll(indeks, false);
 
-            T fjernverdi;
+        T fjernverdi;
 
-            if(indeks == 0) {
-                if (antall == 1){
-                    fjernverdi = hode.verdi;
-                    hale = hode = null;
-                } else {
-                    fjernverdi = hode.verdi;
-                    hode = hode.neste;
-                    hode.forrige = null;
-                }
-
-            } else if(indeks == antall-1){
-                fjernverdi = hale.verdi;
-                hale = hale.forrige;
-                hale.neste = null;
-
-            } else{
-                Node<T> p = finnNode(indeks -1);
-                Node<T> q = p.neste;
-                Node<T> r = q.neste;
-                fjernverdi = q.verdi;
-                p.neste = r;
-                r.forrige = p;
+        if(indeks == 0) {
+            if (antall == 1){
+                fjernverdi = hode.verdi;
+                hale = hode = null;
+            } else {
+                fjernverdi = hode.verdi;
+                hode = hode.neste;
+                hode.forrige = null;
             }
-            antall--;
-            endringer++;
-            return fjernverdi;
+
+        } else if(indeks == antall-1){
+            fjernverdi = hale.verdi;
+            hale = hale.forrige;
+            hale.neste = null;
+        } else{
+            Node<T> p = finnNode(indeks -1);
+            Node<T> q = p.neste;
+            Node<T> r = q.neste;
+            fjernverdi = q.verdi;
+            p.neste = r;
+            r.forrige = p;
         }
+        antall--;
+        endringer++;
+        return fjernverdi;
+    }
 
     @Override
     public void nullstill() {
