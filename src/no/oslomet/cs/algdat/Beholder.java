@@ -35,15 +35,4 @@ public interface Beholder<T> extends Iterable<T> {
         return fjernet;
     }
 
-    public default String melding(int indeks)  // Unntaksmelding
-    {
-        return "Indeks: " + indeks + ", Antall: " + antall();
-    }
-
-    public default void indeksKontroll(int indeks, boolean leggInn)
-    {
-        if (indeks < 0 ? true : (leggInn ? indeks > antall() : indeks >= antall()))
-            throw new IndexOutOfBoundsException(melding(indeks));
-    }
-
 } // grensesnitt Beholder
