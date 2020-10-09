@@ -30,3 +30,8 @@ Sorter: sorterer listen, finner først minste tall, deretter bytter på de. Bruk
 # Kommentar på testresultat
 I oppgave 6 testet vi tid1 og tid2 på to forskjellige pc-er. Den ene fikk tid1: 763 og tid2: 664 og vil da passere testen. Den andre fikk tid1: 1567 og tid2: 856. Den andre får feil på test 6zg pga for stor differanse mellom tidene (dette er nok pga for-løkken i første metode). Vi har testet flere ganger med på første pcen og får ikke opp feilmeldingen på oppgave 6. 
 
+# Warnings
+Vi har noen warnings i koden vår.
+- En warning på en ubrukt kontruktør, dette er grunnet at vi endte med å ikke bruke den i oppgaven.
+- En Warning en tom forloop. Denne skal vøre tom, grunnet at den bare brukes for å traversere et array til vi finner en ikke null verdi.
+- Resten er warnings om at mange av metodene våre kommer til å kaste exception om argumentet er null, dette er jo ønsket funksjonalitet så ikke noe å tenke på.
