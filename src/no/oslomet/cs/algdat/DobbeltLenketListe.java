@@ -7,13 +7,9 @@ package no.oslomet.cs.algdat;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
-import java.util.StringJoiner;
 
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.function.Predicate;
-
-
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
@@ -96,7 +92,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public Liste<T> subliste(int fra, int til){
         //throw new UnsupportedOperationException();
         fratilKontroll(antall, fra, til);
-        Liste<T> liste = new DobbeltLenketListe<T>();
+        Liste<T> liste = new DobbeltLenketListe<>();
         for (int i=fra;i<til;i++) {
             T verdi = finnNode(i).verdi;
             liste.leggInn(verdi);
@@ -135,7 +131,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall == 0){
             hode = hale = new Node<>(verdi,null,null);
         }else{
-            hale = hale.neste = new Node<T>(verdi,hale,null);
+            hale = hale.neste = new Node<>(verdi,hale,null);
         }
         antall ++;
         endringer++;
@@ -301,7 +297,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void nullstill() {
 
         Node<T> p = hode;
-        Node<T> q = null;
+        Node<T> q;
 
         while (p != null)
         {
