@@ -35,3 +35,4 @@ Vi har noen warnings i koden vår.
 - En warning på en ubrukt kontruktør, dette er grunnet at vi endte med å ikke bruke den i oppgaven.
 - En Warning en tom forloop. Denne skal vøre tom, grunnet at den bare brukes for å traversere et array til vi finner en ikke null verdi.
 - Resten er warnings om at mange av metodene våre kommer til å kaste exception om argumentet er null, dette er jo ønsket funksjonalitet så ikke noe å tenke på.
+
